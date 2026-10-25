@@ -18,8 +18,7 @@ func main() {
 	commandLine := os.Args
 
 	fileName := commandLine[1]
-	fmt.Println("File Name:", fileName)
-	file, err := os.Open("test.log") // For read access.
+	file, err := os.Open(fileName)
 	if err != nil {
 		log.Fatal(err)
 	}
