@@ -15,6 +15,10 @@ TODO:	1. Accept a single filename as an argument,
 */
 
 func main() {
+	commandLine := os.Args
+
+	fileName := commandLine[1]
+	fmt.Println("File Name:", fileName)
 	file, err := os.Open("test.log") // For read access.
 	if err != nil {
 		log.Fatal(err)
