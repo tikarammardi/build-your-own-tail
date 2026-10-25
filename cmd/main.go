@@ -16,6 +16,7 @@ TODO:	1. Accept a single filename as an argument,
 
 func main() {
 	commandLine := os.Args
+	numberOfLinesToPrint := 10
 	if len(commandLine) != 2 {
 		//TODO: need to revisit when allowing flags like -f, -v, -F, for now just filename
 		fmt.Println("Usage: go run main.go <file>")
@@ -30,8 +31,13 @@ func main() {
 
 	defer file.Close()
 	scanner := bufio.NewScanner(file)
+	i := 0
 	for scanner.Scan() {
 		fmt.Println(scanner.Text())
+		if i >= numberOfLinesToPrint-1 {
+			break
+		}
+		i++
 	}
 
 }
