@@ -16,6 +16,11 @@ TODO:	1. Accept a single filename as an argument,
 
 func main() {
 	commandLine := os.Args
+	if len(commandLine) != 2 {
+		//TODO: need to revisit when allowing flags like -f, -v, -F, for now just filename
+		fmt.Println("Usage: go run main.go <file>")
+		os.Exit(1)
+	}
 
 	fileName := commandLine[1]
 	file, err := os.Open(fileName)
