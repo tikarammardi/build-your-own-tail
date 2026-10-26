@@ -18,7 +18,7 @@ func main() {
 	commandLine := os.Args
 	numberOfLinesToPrint := 10
 	if len(commandLine) != 2 {
-		//TODO: need to revisit when allowing flags like -f, -v, -F, for now just filename
+		// TODO: need to revisit when allowing flags like -f, -v, -F, for now just filename
 		fmt.Println("Usage: go run main.go <file>")
 		os.Exit(1)
 	}
@@ -31,13 +31,15 @@ func main() {
 
 	defer file.Close()
 	scanner := bufio.NewScanner(file)
-	i := 0
+	var lineContent []string
 	for scanner.Scan() {
-		fmt.Println(scanner.Text())
-		if i >= numberOfLinesToPrint-1 {
-			break
-		}
-		i++
-	}
+		txt := scanner.Text()
+		lineContent = append(lineContent, txt)
 
+	}
+	contentLength := len(lineContent) - numberOfLinesToPrint
+	contentToPrint := lineContent[contentLength:]
+	for _, v := range contentToPrint {
+		fmt.Println(v)
+	}
 }
