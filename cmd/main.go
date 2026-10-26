@@ -37,8 +37,16 @@ func main() {
 		lineContent = append(lineContent, txt)
 
 	}
-	contentLength := len(lineContent) - numberOfLinesToPrint
-	contentToPrint := lineContent[contentLength:]
+
+	var contentToPrint []string
+	contentLength := len(lineContent)
+	if contentLength < numberOfLinesToPrint {
+		contentToPrint = lineContent
+	} else {
+
+		contentLength := len(lineContent) - numberOfLinesToPrint
+		contentToPrint = lineContent[contentLength:]
+	}
 	for _, v := range contentToPrint {
 		fmt.Println(v)
 	}
