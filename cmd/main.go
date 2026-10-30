@@ -65,6 +65,11 @@ func run(args []string) error {
 	if len(args) < 2 {
 		return errors.New("usage: run <command> <args>")
 	}
+	fileName := args[1]
+	_, err := os.Stat(fileName)
+	if err != nil {
+		return fmt.Errorf("cannot open file '%s': %w", fileName, err)
+	}
 	return nil
 
 }

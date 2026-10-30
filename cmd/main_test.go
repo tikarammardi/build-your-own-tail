@@ -25,6 +25,12 @@ func TestRun(t *testing.T) {
 			args:      []string{"gtail"},
 			wantError: true,
 		},
+		{
+			// Simulates: go run ./cmd/main.go missingfile.log
+			name:      "File does not exist",
+			args:      []string{"gtail", "missingfile.log"},
+			wantError: true,
+		},
 	}
 
 	// Execute
