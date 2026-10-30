@@ -3,11 +3,12 @@ package main
 import (
 	"errors"
 	"fmt"
+	"io"
 	"os"
 )
 
 func main() {
-	err := run(os.Args)
+	err := run(os.Args, os.Stdout)
 	if err != nil {
 		fmt.Fprintln(os.Stderr, err)
 		os.Exit(1)
@@ -61,7 +62,7 @@ func main() {
 	*/
 }
 
-func run(args []string) error {
+func run(args []string, out io.Writer) error {
 	if len(args) < 2 {
 		return errors.New("usage: run <command> <args>")
 	}
