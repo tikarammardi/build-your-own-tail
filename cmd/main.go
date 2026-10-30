@@ -56,3 +56,7 @@ func main() {
 		fmt.Println(v)
 	}
 }
+
+func run(args []string) error {
+	return nil
+}
