@@ -21,8 +21,8 @@ func TestRun(t *testing.T) {
 	}{
 		{
 			// Simulates: go run ./cmd/main.go
-			name:      "Missing arg, no args",
-			args:      []string{"gtail", logFile},
+			name:      "Missing logfile",
+			args:      []string{"gtail"},
 			wantError: true,
 		},
 	}
@@ -32,7 +32,7 @@ func TestRun(t *testing.T) {
 		t.Run(tt.name, func(t *testing.T) {
 			err := run(tt.args)
 
-			if err != nil != tt.wantError {
+			if (err != nil) != tt.wantError {
 				t.Errorf("run(%v) error = %v, wantError = %v", tt.args, err, tt.wantError)
 			}
 		})
