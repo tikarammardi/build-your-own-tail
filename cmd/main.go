@@ -1,6 +1,7 @@
 package main
 
 import (
+	"bufio"
 	"errors"
 	"fmt"
 	"io"
@@ -71,7 +72,7 @@ func run(args []string, out io.Writer) error {
 	if err != nil {
 		return fmt.Errorf("cannot open file '%s': %w", fileName, err)
 	}
-	output := "line6\n" +
+	/*output := "line6\n" +
 		"line7\n" +
 		"line8\n" +
 		"line9\n" +
@@ -81,7 +82,37 @@ func run(args []string, out io.Writer) error {
 		"line13\n" +
 		"line14\n" +
 		"line15\n"
-	fmt.Fprint(out, output)
-	return nil
+	fmt.Fprint(out, output) */
+	/*
+		TODO: print the last 10 lines of a file, matching the default behaviour of tail.
 
+	*/
+	//buf := make([]byte, 32*1024)
+	file, err := os.Open(fileName)
+
+	if err != nil {
+		os.Exit(1)
+	}
+
+	defer file.Close()
+	scanner := bufio.NewScanner(file)
+	var lineContent []string
+	for scanner.Scan() {
+		txt := scanner.Text()
+		lineContent = append(lineContent, txt)
+	}
+	var contentToPrint []string
+	numberOfLinesToPrint := 10
+	contentLength := len(lineContent)
+	if contentLength < numberOfLinesToPrint {
+
+		contentToPrint = lineContent
+	} else {
+		contentLength := contentLength - numberOfLinesToPrint
+		contentToPrint = lineContent[contentLength:]
+	}
+	for _, v := range contentToPrint {
+		fmt.Fprintln(out, v)
+	}
+	return nil
 }
