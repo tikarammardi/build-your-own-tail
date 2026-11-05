@@ -72,22 +72,7 @@ func run(args []string, out io.Writer) error {
 	if err != nil {
 		return fmt.Errorf("cannot open file '%s': %w", fileName, err)
 	}
-	/*output := "line6\n" +
-		"line7\n" +
-		"line8\n" +
-		"line9\n" +
-		"line10\n" +
-		"line11\n" +
-		"line12\n" +
-		"line13\n" +
-		"line14\n" +
-		"line15\n"
-	fmt.Fprint(out, output) */
-	/*
-		TODO: print the last 10 lines of a file, matching the default behaviour of tail.
 
-	*/
-	//buf := make([]byte, 32*1024)
 	file, err := os.Open(fileName)
 
 	if err != nil {
