@@ -71,6 +71,12 @@ func TestRun(t *testing.T) {
 			wantError:  false,
 			wantOutput: "line1\nline2\nline3\nline4\nline5\n",
 		},
+		{
+			name:       "Print last 3 lines using -n",
+			args:       []string{"gtail", "-n", "3", logFile},
+			wantError:  false,
+			wantOutput: "line13\nline14\nline15\n",
+		},
 	}
 
 	// Execute

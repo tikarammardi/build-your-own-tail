@@ -5,7 +5,9 @@ import (
 	"errors"
 	"fmt"
 	"io"
+	"log"
 	"os"
+	"strconv"
 )
 
 func main() {
@@ -67,7 +69,22 @@ func run(args []string, out io.Writer) error {
 	if len(args) < 2 {
 		return errors.New("usage: run <command> <args>")
 	}
-	fileName := args[1]
+	flag := args[1]
+	var fileName string
+	var line int
+	if flag == "-n" {
+
+		n, err1 := strconv.Atoi(args[2])
+		line = n
+		if err1 != nil {
+			log.Fatal(err1)
+			os.Exit(1)
+		}
+
+		fileName = args[3]
+	} else {
+		fileName = args[1]
+	}
 	_, err := os.Stat(fileName)
 	if err != nil {
 		return fmt.Errorf("cannot open file '%s': %w", fileName, err)
@@ -88,6 +105,9 @@ func run(args []string, out io.Writer) error {
 	}
 	var contentToPrint []string
 	numberOfLinesToPrint := 10
+	if flag == "-n" {
+		numberOfLinesToPrint = line
+	}
 	contentLength := len(lineContent)
 	if contentLength < numberOfLinesToPrint {
 
