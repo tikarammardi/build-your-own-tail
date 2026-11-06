@@ -28,6 +28,16 @@ func TestRun(t *testing.T) {
 	if err != nil {
 		t.Fatal(err)
 	}
+	logFileWith5Lines := filepath.Join(tmpDir, "test2.log")
+
+	err2 := os.WriteFile(logFileWith5Lines, []byte("line1\n"+
+		"line2\n"+
+		"line3\n"+
+		"line4\n"+
+		"line5\n"), 0644)
+	if err2 != nil {
+		t.Fatal(err2)
+	}
 
 	tests := []struct {
 		name       string
@@ -54,6 +64,12 @@ func TestRun(t *testing.T) {
 			args:       []string{"gtail", logFile},
 			wantError:  false,
 			wantOutput: "line6\nline7\nline8\nline9\nline10\nline11\nline12\nline13\nline14\nline15\n",
+		},
+		{
+			name:       "Print all lines if less than 10",
+			args:       []string{"gtail", logFileWith5Lines},
+			wantError:  false,
+			wantOutput: "line1\nline2\nline3\nline4\nline5\n",
 		},
 	}
 
