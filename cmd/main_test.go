@@ -102,7 +102,14 @@ func TestRun(t *testing.T) {
 			args:             []string{"gtail", "-n", "abc", logFile},
 			wantError:        true,
 			wantOutput:       "",
-			wantErrorMessage: "illegal offset -- abc: Invalid argument\n",
+			wantErrorMessage: "illegal offset -- abc: Invalid argument",
+		},
+		{
+			name:             "Missing argument for -n",
+			args:             []string{"gtail", "-n", logFile},
+			wantError:        true,
+			wantOutput:       "",
+			wantErrorMessage: "illegal offset -- " + logFile + ": Invalid argument",
 		},
 	}
 

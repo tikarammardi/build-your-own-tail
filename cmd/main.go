@@ -76,7 +76,7 @@ func run(args []string, out io.Writer) error {
 		n, err1 := strconv.Atoi(args[2])
 		line = n
 		if err1 != nil {
-			return fmt.Errorf("illegal offset -- %s: Invalid argument\n", args[2])
+			return fmt.Errorf("illegal offset -- %s: Invalid argument", args[2])
 		}
 
 		fileName = args[3]
