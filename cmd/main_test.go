@@ -116,6 +116,10 @@ func TestRun(t *testing.T) {
 				t.Errorf("run(%v) error = %v, wantError = %v", tt.args, err, tt.wantError)
 				return
 			}
+			// Add this check for the specific error message
+			if err != nil && tt.wantErrorMessage != "" && err.Error() != tt.wantErrorMessage {
+				t.Errorf("run(%v) error message = %q, wantErrorMessage = %q", tt.args, err.Error(), tt.wantErrorMessage)
+			}
 			gotOutput := buf.String()
 			if gotOutput != tt.wantOutput {
 				t.Errorf("run(%v) gotOutput = %v, wantOutput = %v", tt.args, gotOutput, tt.wantOutput)
