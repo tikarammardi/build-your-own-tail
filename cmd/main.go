@@ -5,7 +5,6 @@ import (
 	"errors"
 	"fmt"
 	"io"
-	"log"
 	"os"
 	"strconv"
 )
@@ -77,8 +76,7 @@ func run(args []string, out io.Writer) error {
 		n, err1 := strconv.Atoi(args[2])
 		line = n
 		if err1 != nil {
-			log.Fatal(err1)
-			os.Exit(1)
+			return fmt.Errorf("illegal offset -- %s: Invalid argument", err1)
 		}
 
 		fileName = args[3]

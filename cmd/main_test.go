@@ -40,54 +40,69 @@ func TestRun(t *testing.T) {
 	}
 
 	tests := []struct {
-		name       string
-		args       []string
-		wantError  bool
-		wantOutput string
+		name             string
+		args             []string
+		wantError        bool
+		wantErrorMessage string
+		wantOutput       string
 	}{
 		{
 			// Simulates: go run ./cmd/main.go
-			name:       "Missing logfile",
-			args:       []string{"gtail"},
-			wantError:  true,
-			wantOutput: "",
+			name:             "Missing logfile",
+			args:             []string{"gtail"},
+			wantError:        true,
+			wantOutput:       "",
+			wantErrorMessage: "",
 		},
 		{
 			// Simulates: go run ./cmd/main.go missingfile.log
-			name:       "File does not exist",
-			args:       []string{"gtail", "missingfile.log"},
-			wantError:  true,
-			wantOutput: "",
+			name:             "File does not exist",
+			args:             []string{"gtail", "missingfile.log"},
+			wantError:        true,
+			wantOutput:       "",
+			wantErrorMessage: "",
 		},
 		{
-			name:       "Print last 10 lines",
-			args:       []string{"gtail", logFile},
-			wantError:  false,
-			wantOutput: "line6\nline7\nline8\nline9\nline10\nline11\nline12\nline13\nline14\nline15\n",
+			name:             "Print last 10 lines",
+			args:             []string{"gtail", logFile},
+			wantError:        false,
+			wantOutput:       "line6\nline7\nline8\nline9\nline10\nline11\nline12\nline13\nline14\nline15\n",
+			wantErrorMessage: "",
 		},
 		{
-			name:       "Print all lines if less than 10",
-			args:       []string{"gtail", logFileWith5Lines},
-			wantError:  false,
-			wantOutput: "line1\nline2\nline3\nline4\nline5\n",
+			name:             "Print all lines if less than 10",
+			args:             []string{"gtail", logFileWith5Lines},
+			wantError:        false,
+			wantOutput:       "line1\nline2\nline3\nline4\nline5\n",
+			wantErrorMessage: "",
 		},
 		{
-			name:       "Print last 3 lines using -n",
-			args:       []string{"gtail", "-n", "3", logFile},
-			wantError:  false,
-			wantOutput: "line13\nline14\nline15\n",
+			name:             "Print last 3 lines using -n",
+			args:             []string{"gtail", "-n", "3", logFile},
+			wantError:        false,
+			wantOutput:       "line13\nline14\nline15\n",
+			wantErrorMessage: "",
 		},
 		{
-			name:       "Print 0 lines",
-			args:       []string{"gtail", "-n", "0", logFile},
-			wantError:  false,
-			wantOutput: "",
+			name:             "Print 0 lines",
+			args:             []string{"gtail", "-n", "0", logFile},
+			wantError:        false,
+			wantOutput:       "",
+			wantErrorMessage: "",
 		},
 		{
-			name:       "Print more lines than file has using -n",
-			args:       []string{"gtail", "-n", "20", logFileWith5Lines},
-			wantError:  false,
-			wantOutput: "line1\nline2\nline3\nline4\nline5\n",
+			name:             "Print more lines than file has using -n",
+			args:             []string{"gtail", "-n", "20", logFileWith5Lines},
+			wantError:        false,
+			wantOutput:       "line1\nline2\nline3\nline4\nline5\n",
+			wantErrorMessage: "",
+		},
+		{
+			name:             "Invalid -n value (non-numeric)",
+			args:             []string{"gtail", "-n", "abc", logFile},
+			wantError:        true,
+			wantOutput:       "",
+			wantErrorMessage: "illegal offset -- abc: Invalid argument\n",
 		},
 	}
 
