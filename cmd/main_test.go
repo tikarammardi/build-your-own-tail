@@ -77,6 +77,12 @@ func TestRun(t *testing.T) {
 			wantError:  false,
 			wantOutput: "line13\nline14\nline15\n",
 		},
+		{
+			name:       "Print 0 lines",
+			args:       []string{"gtail", "-n", "0", logFile},
+			wantError:  false,
+			wantOutput: "",
+		},
 	}
 
 	// Execute
