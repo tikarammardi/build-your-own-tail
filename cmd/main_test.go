@@ -83,6 +83,12 @@ func TestRun(t *testing.T) {
 			wantError:  false,
 			wantOutput: "",
 		},
+		{
+			name:       "Print more lines than file has using -n",
+			args:       []string{"gtail", "-n", "20", logFileWith5Lines},
+			wantError:  false,
+			wantOutput: "line1\nline2\nline3\nline4\nline5\n",
+		},
 	}
 
 	// Execute
